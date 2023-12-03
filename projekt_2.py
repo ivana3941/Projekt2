@@ -1,4 +1,14 @@
+"""
 
+projekt_2.py: druhý projekt do Engeto Online Python Akademie
+
+author: Ivana ROHOVÁ
+
+email: bytypr@gmail.com
+
+discord: Ivana #3941
+
+"""
 import os
 import random
 
@@ -10,29 +20,21 @@ print(oddelovac)
 
 
 def vytvor_hadane_cislo():
-    numbers = [str(i) for i in range(1, 10)]
-    random.shuffle(numbers)
+    numbers = [str(i) for i in range(0, 10)]
+    while True:
+        random.shuffle(numbers)
+        if numbers[0] != "0":
+            break
     return "".join(numbers[:4])
 
-#def generate_unique_number():
- #   while True:
-  #      number = random.sample(range(10), 4) 
-   #     if number[0] == 0:
-    #        continue  
-     #   unique_number = int(''.join(map(str, number)))
-      #  if 1000 <= unique_number <= 9999:
-       #     return unique_number
-
-# generated_numbers = set()
-hadane_cislo = str(vytvor_hadane_cislo())
+hadane_cislo = vytvor_hadane_cislo()
 
 def hra():
     os.system("cls")
-    hadane_cislo
     tipy = []
 
     while True:
-        tip = input("Enter a number: ")
+        tip = input("Let's play a bulls and cows game! Enter a number: ")
         
         tipy.append(tip)
 
@@ -44,14 +46,6 @@ def hra():
             quit()
 
 
-  #      def opakovana_cisla(number):
-   #         digit_str = str(number)
-    #        return len(set(digit_str)) < len(digit_str)
-     #   if opakovana_cisla(tip) == True:
-      #      print("You repeated numbers. Terminating the program...")
-       #     quit()
-
- 	
         if len(tip)!=len(set(tip)):
             print("You repeated numbers. Terminating the program...")
             quit()
