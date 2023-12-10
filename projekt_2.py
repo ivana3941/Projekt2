@@ -30,6 +30,25 @@ def vytvor_hadane_cislo() -> str:
     return "".join(numbers[:4])
 
 
+def kontrola_tipu(tip: str) -> bool:
+    """
+    Vrátí True, je-li tip číslo o 4 číslicích bez opakování a nezačínající nulou.
+    """
+    if not tip.isnumeric():
+        print("Not a number. Try again.")
+        return False
+    if len(tip) != 4:
+        print ("Number is too short or long. Try again.")
+        return False
+    if len(tip)!=len(set(tip)):
+        print("You repeated numbers. Try again.")
+        return False
+    if tip[0] == "0":
+        print("First number cannot be zero. Try again.")
+        return False
+    return True
+
+
 def hra() -> None:
     os.system("cls")
     tipy = []
@@ -44,21 +63,8 @@ def hra() -> None:
 
     while True:
         tip = input("Enter a number: ")
-        
-        if not tip.isnumeric():
-            print("Not a number. Try again.")
-            continue
-        if len(tip) != 4:
-            print ("Number is too short or long. Try again.")
-            continue
 
-
-        if len(tip)!=len(set(tip)):
-            print("You repeated numbers. Try again.")
-            continue
-            
-        if tip[0] == "0":
-            print("First number cannot be zero. Try again.")
+        if not kontrola_tipu(tip):
             continue
 
         tipy.append(tip)
