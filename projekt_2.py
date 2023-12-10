@@ -19,7 +19,15 @@ print("I've generated a random 4 digit number for you. \nLet's play a bulls and 
 print(oddelovac)
 
 
-def vytvor_hadane_cislo():
+def vytvor_hadane_cislo() -> str:
+    """
+    Vytvoří hádané číslo o 4 číslicích, bez opakování a nezačínající nulou.
+
+    Příklad:
+    >>> vysledek = vytvor_hadane_cislo()
+    >>> vysledek
+    "3820"
+    """
     numbers = [str(i) for i in range(0, 10)]
     while True:
         random.shuffle(numbers)
@@ -27,9 +35,11 @@ def vytvor_hadane_cislo():
             break
     return "".join(numbers[:4])
 
+
 hadane_cislo = vytvor_hadane_cislo()
 
-def hra():
+
+def hra() -> None:
     os.system("cls")
     tipy = []
 
@@ -48,16 +58,19 @@ def hra():
             print("You repeated numbers. Try again.")
             continue
             
-        def zacina_nulou(tip):
-            cislo = str(tip)
-            return cislo[0] == "0"
-        if zacina_nulou(tip) == True:
+        if tip[0] == "0":
             print("First number cannot be zero. Try again.")
             continue
 
         tipy.append(tip)
 
-        def vyhodnoceni(cislice, tip):
+
+        def vyhodnoceni(cislice: str, tip: str) -> tuple[int, int]:
+            """
+            Každou číslici z parametru "tip" porovná s číslicí na stejné pozici v parametru "cislice" a
+            je-li stejná, pak jde o Bull. Vyskytuje-li se tato číslice jinde v parametru "cislice", pak jde o Cow.
+            Vrátí tuple s celkovým počtem Bulls a Cows.
+            """
             bulls = 0
             cows = 0
 
@@ -68,6 +81,7 @@ def hra():
                     cows += 1
 
             return bulls, cows
+
 
         if tip == hadane_cislo:
             print(oddelovac)
@@ -96,6 +110,7 @@ def hra():
             else: 
                 print (f"Bulls: {bulls}, Cows: {cows}")
             print(oddelovac)
+
 
 if __name__ == "__main__":
     hra()
