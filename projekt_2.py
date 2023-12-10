@@ -12,12 +12,6 @@ discord: Ivana #3941
 import os
 import random
 
-print("Hi there!")
-oddelovac = "-" * 50
-print(oddelovac)
-print("I've generated a random 4 digit number for you. \nLet's play a bulls and cows game.")
-print(oddelovac)
-
 
 def vytvor_hadane_cislo() -> str:
     """
@@ -36,15 +30,20 @@ def vytvor_hadane_cislo() -> str:
     return "".join(numbers[:4])
 
 
-hadane_cislo = vytvor_hadane_cislo()
-
-
 def hra() -> None:
     os.system("cls")
     tipy = []
 
+    hadane_cislo = vytvor_hadane_cislo()
+
+    print("Hi there!")
+    oddelovac = "-" * 50
+    print(oddelovac)
+    print("I've generated a random 4 digit number for you. \nLet's play a bulls and cows game.")
+    print(oddelovac)
+
     while True:
-        tip = input("Let's play a bulls and cows game! Enter a number: ")
+        tip = input("Enter a number: ")
         
         if not tip.isnumeric():
             print("Not a number. Try again.")
