@@ -49,6 +49,24 @@ def kontrola_tipu(tip: str) -> bool:
     return True
 
 
+def vyhodnoceni_tipu(cislice: str, tip: str) -> tuple[int, int]:
+    """
+    Každou číslici z parametru "tip" porovná s číslicí na stejné pozici v parametru "cislice" a
+    je-li stejná, pak jde o Bull. Vyskytuje-li se tato číslice jinde v parametru "cislice", pak jde o Cow.
+    Vrátí tuple s celkovým počtem Bulls a Cows.
+    """
+    bulls = 0
+    cows = 0
+
+    for i in range(len(cislice)):
+        if cislice[i] == tip[i]:
+            bulls += 1
+        elif cislice[i] in tip:
+            cows += 1
+
+    return bulls, cows
+
+
 def hra() -> None:
     os.system("cls")
     tipy = []
@@ -70,24 +88,6 @@ def hra() -> None:
         tipy.append(tip)
 
 
-        def vyhodnoceni(cislice: str, tip: str) -> tuple[int, int]:
-            """
-            Každou číslici z parametru "tip" porovná s číslicí na stejné pozici v parametru "cislice" a
-            je-li stejná, pak jde o Bull. Vyskytuje-li se tato číslice jinde v parametru "cislice", pak jde o Cow.
-            Vrátí tuple s celkovým počtem Bulls a Cows.
-            """
-            bulls = 0
-            cows = 0
-
-            for i in range(len(cislice)):
-                if cislice[i] == tip[i]:
-                    bulls += 1
-                elif cislice[i] in tip:
-                    cows += 1
-
-            return bulls, cows
-
-
         if tip == hadane_cislo:
             print(oddelovac)
             print(f"Correct, you've guessed the right number: {tipy[-1]}.")
@@ -104,7 +104,7 @@ def hra() -> None:
             break
         else:
             print(oddelovac)
-            bulls, cows = vyhodnoceni(hadane_cislo, tip)
+            bulls, cows = vyhodnoceni_tipu(hadane_cislo, tip)
             print(f">>>  {tipy[-1]}")
             if bulls == 1 and cows != 1:
                 print(f"Bull: {bulls}, Cows: {cows}")
