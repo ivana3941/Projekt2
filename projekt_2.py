@@ -67,6 +67,54 @@ def vyhodnoceni_tipu(cislice: str, tip: str) -> tuple[int, int]:
     return bulls, cows
 
 
+def uspech(tipy: list[str], oddelovac: str) -> None:
+    """
+    Informuje hráče, že vyhrál a zhodnotí jeho výkon.
+    """
+    print(oddelovac)
+    print(f"Correct, you've guessed the right number: {tipy[-1]}.")
+    print(oddelovac)
+    if len(tipy) <= 5:
+        print(f"You guessed the number in {len(tipy)} guesses. That's amazing !!! \nHere are your guesses: {tipy}")
+    elif 5 < len(tipy) <= 10:
+        print(f"You guessed the number in {len(tipy)} guesses. That's very good! \nHere are your guesses: {tipy}")
+    elif 10 < len(tipy) <= 20:
+        print(f"You guessed the number in {len(tipy)} guesses. That's average...  \nHere are your guesses: {tipy}")
+    elif 20 < len(tipy):
+        print(f"You guessed the number in {len(tipy)} guesses. That's not good!!! :-( Try it again! \nHere are your guesses: {tipy}")
+    print(oddelovac)
+
+
+def neuspech(hadane_cislo: str, tipy: list[str], oddelovac: str) -> None:
+    """
+    Informuje hráče, že ještě nevyhrál a napoví mu.
+    """
+    print(oddelovac)
+    bulls, cows = vyhodnoceni_tipu(hadane_cislo, tipy[-1])
+    print(f">>>  {tipy[-1]}")
+    if bulls == 1 and cows != 1:
+        print(f"Bull: {bulls}, Cows: {cows}")
+    elif cows == 1 and bulls != 1:
+        print(f"Bulls: {bulls}, Cow: {cows}")
+    elif cows == 1 and bulls == 1:
+        print(f"Bull: {bulls}, Cow: {cows}")
+    else:
+        print (f"Bulls: {bulls}, Cows: {cows}")
+    print(oddelovac)
+
+
+def vyhodnoceni_hry(hadane_cislo: str, tipy: list[str], oddelovac: str) -> bool:
+    """
+    Vyhodnotí, je-li poslední tip v parametru "tipy" shodný s parametrem "hadane_cislo", informuje hráče a vrátí True.
+    """
+    if tipy[-1] == hadane_cislo:
+        uspech(tipy, oddelovac)
+        return True
+    else:
+        neuspech(hadane_cislo, tipy, oddelovac)
+        return False
+
+
 def hra() -> None:
     os.system("cls")
     tipy = []
@@ -87,34 +135,8 @@ def hra() -> None:
 
         tipy.append(tip)
 
-
-        if tip == hadane_cislo:
-            print(oddelovac)
-            print(f"Correct, you've guessed the right number: {tipy[-1]}.")
-            print(oddelovac)
-            if len(tipy) <= 5:
-                print(f"You guessed the number in {len(tipy)} guesses. That's amazing !!! \nHere are your guesses: {tipy}")
-            elif 5 < len(tipy) <= 10:
-                print(f"You guessed the number in {len(tipy)} guesses. That's very good! \nHere are your guesses: {tipy}")
-            elif 10 < len(tipy) <= 20:
-                print(f"You guessed the number in {len(tipy)} guesses. That's average...  \nHere are your guesses: {tipy}")
-            elif 20 < len(tipy):
-                print(f"You guessed the number in {len(tipy)} guesses. That's not good!!! :-( Try it again! \nHere are your guesses: {tipy}")
-            print(oddelovac)
+        if vyhodnoceni_hry(hadane_cislo, tipy, oddelovac):
             break
-        else:
-            print(oddelovac)
-            bulls, cows = vyhodnoceni_tipu(hadane_cislo, tip)
-            print(f">>>  {tipy[-1]}")
-            if bulls == 1 and cows != 1:
-                print(f"Bull: {bulls}, Cows: {cows}")
-            elif cows == 1 and bulls != 1:
-                print(f"Bulls: {bulls}, Cow: {cows}")
-            elif cows == 1 and bulls == 1:
-                print(f"Bull: {bulls}, Cow: {cows}")
-            else: 
-                print (f"Bulls: {bulls}, Cows: {cows}")
-            print(oddelovac)
 
 
 if __name__ == "__main__":
