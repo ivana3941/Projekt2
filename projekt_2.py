@@ -36,26 +36,26 @@ def hra():
     while True:
         tip = input("Let's play a bulls and cows game! Enter a number: ")
         
-        tipy.append(tip)
-
         if not tip.isnumeric():
-            print("Not a number, terminating the program...")
-            quit()
+            print("Not a number. Try again.")
+            continue
         if len(tip) != 4:
-            print ("Number is too short or long, terminating the program...")
-            quit()
+            print ("Number is too short or long. Try again.")
+            continue
 
 
         if len(tip)!=len(set(tip)):
-            print("You repeated numbers. Terminating the program...")
-            quit()
+            print("You repeated numbers. Try again.")
+            continue
             
         def zacina_nulou(tip):
             cislo = str(tip)
             return cislo[0] == "0"
         if zacina_nulou(tip) == True:
-            print("First number cannot be zero, terminating the program...")
-            quit()
+            print("First number cannot be zero. Try again.")
+            continue
+
+        tipy.append(tip)
 
         def vyhodnoceni(cislice, tip):
             bulls = 0
